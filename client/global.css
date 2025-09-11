@@ -1,0 +1,167 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+  */
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    /* Brand: DigiVaidya */
+    /* Primary #2E7D32 -> ~hsl(123, 46%, 34%) */
+    --primary: 123 46% 34%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Softer green surfaces */
+    --secondary: 140 30% 96%;
+    --secondary-foreground: 123 46% 20%;
+
+    --muted: 150 20% 96%;
+    --muted-foreground: 150 8% 35%;
+
+    /* Darker green accent for headings/buttons */
+    --accent: 125 55% 22%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 150 22% 92%;
+    --input: 150 22% 92%;
+    --ring: 123 46% 34%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 123 46% 34%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 140 30% 96%;
+    --sidebar-accent-foreground: 123 46% 20%;
+    --sidebar-border: 150 22% 92%;
+    --sidebar-ring: 123 46% 34%;
+
+    /* Chart tokens (light) */
+    --chart-1: 123 46% 34%;
+    --chart-2: 210 90% 60%;
+  }
+
+  .dark {
+    /* Dark palette with dim saffron */
+    --background: 0 0% 7%; /* #121212 */
+    --foreground: 0 0% 92%; /* #EAEAEA */
+
+    --card: 0 0% 12%; /* #1E1E1E */
+    --card-foreground: 0 0% 92%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 92%;
+
+    /* Primary/accent switch to saffron */
+    --primary: 30 80% 52%; /* dim saffron */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 92%;
+
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 30 85% 45%; /* deeper saffron */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 92%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 30 80% 52%;
+
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 92%;
+    --sidebar-primary: 30 80% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 0 0% 92%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 30 80% 52%;
+
+    /* Chart tokens (dark) */
+    --chart-1: 30 85% 60%; /* saffron line */
+    --chart-2: 210 90% 75%; /* secondary */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family:
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      Segoe UI,
+      Roboto,
+      Helvetica,
+      Arial,
+      "Apple Color Emoji",
+      "Segoe UI Emoji";
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  .heading-serif {
+    font-family:
+      "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times,
+      serif;
+  }
+}
+
+@layer utilities {
+  .soft-green-bg {
+    background-image: linear-gradient(
+      135deg,
+      hsl(123 46% 34% / 0.06),
+      hsl(123 46% 34% / 0)
+    );
+  }
+  .gradient-text {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--primary)),
+      hsl(var(--accent))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .chart-primary-stroke {
+    stroke: hsl(var(--chart-1));
+  }
+  .chart-secondary-stroke {
+    stroke: hsl(var(--chart-2));
+  }
+}
