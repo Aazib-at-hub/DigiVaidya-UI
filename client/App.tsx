@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ToastProvider } from "@/components/ui/toast-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
@@ -41,7 +42,6 @@ function ThemeToggle() {
 }
 
 function Layout() {
-  const [open, setOpen] = useState(true);
   const nav = [
     { to: "/", label: "Dashboard" },
     { to: "/patients", label: "Patients" },
@@ -51,22 +51,23 @@ function Layout() {
   ];
   return (
     <div className="min-h-screen flex flex-col soft-green-bg">
-      <header className="sticky top-0 z-40 w-full backdrop-blur supports-[backdrop-filter]:bg-background/70 border-b">
-        <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))]" />
-            <span className="text-xl font-semibold heading-serif text-primary">
-              DigiVaidya
-            </span>
+            <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="content-container flex h-16 items-center justify-between">
+          <Link
+            to="/"
+            className="heading-serif text-xl font-bold gradient-text hover:scale-105 transition-transform"
+          >
+            DigiVaidya
           </Link>
-          <nav className="flex items-center gap-6 text-sm">
+          <nav className="flex items-center gap-8 text-sm">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground font-medium transition-colors relative group"
               >
                 {n.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-200"></span>
               </Link>
             ))}
             <ThemeToggle />
@@ -74,38 +75,22 @@ function Layout() {
         </div>
       </header>
 
-      <div className="flex-1 container grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 py-6">
-        <aside
-          className={`${open ? "w-60" : "w-16"} transition-all hidden lg:block`}
-        >
-          <div className="rounded-xl border bg-card shadow-sm p-3">
-            <button
-              onClick={() => setOpen((v) => !v)}
-              className="mb-3 text-xs text-muted-foreground hover:text-foreground"
-            >
-              {open ? "Collapse" : "Expand"}
-            </button>
-            <div className="grid gap-2">
-              <Link to="#" className="rounded-md px-3 py-2 hover:bg-secondary">
-                Add Patient
-              </Link>
-              <Link to="#" className="rounded-md px-3 py-2 hover:bg-secondary">
-                Appointments
-              </Link>
-              <Link to="#" className="rounded-md px-3 py-2 hover:bg-secondary">
-                Notifications
-              </Link>
-            </div>
-          </div>
-        </aside>
+      <div className="flex-1">
         <main>
           <Outlet />
         </main>
       </div>
 
-      <footer className="border-t">
-        <div className="container py-6 text-center text-sm text-muted-foreground">
-          Powered by DigiVaidya | Ayurveda meets AI
+      <footer className="border-t bg-secondary/30">
+        <div className="content-container py-8 text-center">
+          <div className="space-y-2">
+            <div className="heading-serif text-lg font-semibold gradient-text">
+              DigiVaidya
+            </div>
+            <div className="text-sm text-muted-foreground">
+              Ayurveda meets AI • Transforming Healthcare with Ancient Wisdom
+            </div>
+          </div>
         </div>
       </footer>
     </div>
@@ -114,10 +99,11 @@ function Layout() {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+    <ToastProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
@@ -135,6 +121,7 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
+    </ToastProvider>
   </QueryClientProvider>
 );
 
